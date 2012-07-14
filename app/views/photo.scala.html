@@ -1,0 +1,213 @@
+	@(user: User)(photoList: List[Photo])
+	
+	@import helper._
+	
+	@homebase("home"){
+	
+	<link rel="stylesheet" media="screen" href="@routes.Assets.at("/public","stylesheets/prettyPhoto.css")" charset="utf-8">
+	<script src="@routes.Assets.at("/public","javascripts/bootstrap-alert.js")" type="text/javascript" charset="utf-8"></script>
+	<script src="@routes.Assets.at("/public","javascripts/jquery.prettyPhoto.js")" type="text/javascript" charset="utf-8"></script>
+	<script src="@routes.Assets.at("/public","javascripts/inplace-editing.js")" type="text/javascript" charset="utf-8"></script>
+	
+	<script type="text/javascript" charset="utf-8">
+	  
+	    var currentId = "-1";
+	    
+	    function clearMsg (id){
+	    	
+	    	$('#' + id).hide();
+	    }
+	  
+		$(document).ready(function(){
+			
+			$("a[rel^='prettyPhoto']").prettyPhoto();
+	
+			
+		    $("#albumName").keyup(function(){
+		    	var name = $("#albumName").val();
+		    	if (name.replace(/\s/g,"") != ""){
+		    		$("#okBtn").removeAttr("disabled");
+		    	}
+		    	else
+		    		$("#okBtn").attr("disabled", "disabled");
+		    });
+		    
+		    $("#okBtn").click(function(){
+		    	 
+		    	  var dirName = $("#albumName").val();
+		    	  $("#frm_addAlbum").attr("action", "/albums/" + dirName + "/add");
+		    	  $("#frm_addAlbum").submit();
+		    });
+		    
+		    
+		    $(".photoDes").each(function(index) {
+		        if($(this).html().trim()==""){
+		        	$(this).html("Click to input ...");
+		        	$(this).css({'color':'grey'});
+		        }
+		    });
+		    
+		    $(".photoTitle").each(function(index) {
+		        if($(this).html().trim()==""){
+		        	$(this).html("Click to input ...");
+		        	$(this).css({'color':'grey'});
+		        }
+		    });
+		});	
+		
+		
+		
+	
+	/* 	$(document).click(function(event) {
+			
+			var clickId = $(event.target).attr('id');
+			
+			if (clickId == currentId)
+				//clearMsg (currentId);
+				alert('yes');
+			
+			
+			if($(event.target).parents().index($('#menucontainer')) == -1) { 
+		        if($('#menucontainer').is(":visible")) { 
+		            $('#menucontainer').hide() 
+		        } 
+		    }         
+		}); */
+		
+	</script>
+	
+	<style> 
+	
+	.thumbnails > li {
+	margin-bottom: 40px;
+	margin-right: 100px;
+	}
+	
+	.modal {
+	   width: 1024px;
+	   height: 400px;
+	}
+	
+	input.span3 {
+		width: 210px;
+		background-color: #E2F0FF;
+		font-weight: bold;
+		font-size: 14px;
+	}
+	
+	textarea.span3 {
+		width: 210px;
+		background-color: #E2F0FF;
+		margin-top: 0px;
+		margin-bottom: 0px;
+		height: 70px;
+		margin-left: 0px;
+		margin-right: 0px;
+	}
+	
+	h2.no-photos {
+		text-align: center;
+	}
+	
+	</style>
+	
+	}{
+	
+	<div class="container">
+		
+		
+		<header class="jumbotron subhead" id="overview" style="margin-top: 60px">
+		  <h1>YOUR PHOTOS</h1>
+		  <p class="lead"></p>
+		  <div class="subnav">
+		    <ul class="breadcrumb">
+		    	<li><a href="@routes.MainProgram.album()">Album</a> <span class="divider">/</span></li>
+				<li class="active">Photo</li>
+				<li style="float:right;">
+					<a data-toggle="modal" id="modalBtn" href="#myModal" class="btn btn-primary btn-large">
+		      			Upload
+		   	 		</a>
+				</li> 
+		    </ul>
+		  </div>
+		</header>
+		
+		
+		<section id="thumbnails">
+				<div id="myModal" class="modal hide fade" style="display: none;">
+					<div class="modal-header">
+						<button class="close" data-dismiss="modal">
+							<img src="@routes.Assets.at("/public","images/close.png")"  alt="Close" />
+						</button>
+						<h3>Upload</h3>
+					</div>
+										
+					<div class="modal-body">
+											
+											
+						<p>Email</p>
+						<p>
+						   <span id="availability_email"></span>
+						</p>
+											
+						<p>Password</p>
+						<p>
+						    <span id="availability_pwd1"></span>
+						</p>
+						<p>Confirm Password</p>
+						<p>
+						   <span id="availability_pwd2"></span>
+						</p>
+					</div>
+										
+			</div>			
+	
+				
+			<div class="row">
+				
+					<ul class="thumbnails">
+						
+					@if(photoList.length == 0) {
+						<h2 class="no-photos">You haven't uploaded any photos.</h2>
+					}
+					
+				
+					@for(i <- 0 to photoList.length-1){
+					
+						<li class="span3">
+							<div>
+								<a id="a_@photoList(i).id" class="thumbnail" href="@routes.Assets.at("/public","albums/" + photoList(i).path + "")" rel="prettyPhoto" title="@photoList(i).description"> 
+									<img id = "img_@photoList(i).id" src="@routes.Assets.at("/public","albums/" + photoList(i).smallPath + "")" alt="@photoList(i).name">
+								</a>
+								<div class="caption">
+					              <div id=@photoList(i).id class="photoTitle">@photoList(i).name</div>
+					              <div class="photoDes">@photoList(i).description</div>
+					              <form action="@routes.MainProgram.deletePhoto(photoList(i).id)" id="frm_@photoList(i).id" method="post" style="display: none;">
+							      </form>
+					              <p><a href="javascript:;" onclick="clearMsg(currentId); $('#div_@photoList(i).id').show(); currentId='div_@photoList(i).id'; " class="btn">Delete</a> <a href="@routes.MainProgram.postPicToWeibo" class="btn">Weibo</a></p>
+	            				</div>
+	            				<div id="div_@photoList(i).id" class="alert alert-error" style="display:none">
+							        <button type="button" class="close" href="javascript:;" onclick="$('#div_@photoList(i).id').hide();">x</button>
+							        <strong>Are you sure to delete this photo?</strong>
+							        <a href="javascript:;" onclick="javascript: document.getElementById('frm_@photoList(i).id') .submit()" class="btn">Yes</a> <a href="javascript:;" onclick="$('#div_@photoList(i).id').hide();" class="btn">No</a>
+							    </div>
+							</div>
+						</li>
+						
+						@if((i+1) % 3 == 0 ){
+							<div class="row">
+							</div>
+						}
+	
+					}	
+					
+					</ul>
+				
+			</div>
+	
+		</section>
+		
+	</div>
+	
+	}
+	

@@ -1,0 +1,29 @@
+@base(Html("FAMISHOT"), nav = "view"){
+<script src="@routes.Assets.at("/public","javascripts/galleria-1.2.7.js")" type="text/javascript"></script>
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("/public","stylesheets/galleria.classic.css")">
+<style>
+
+/* This rule is read by Galleria to define the gallery height: */
+#galleria {
+	height: 600px
+}
+</style>
+
+}{
+       
+		<div id="galleria" class="container"  style="width:1020px">
+				<img src="@routes.Assets.at("/public","images/img22023.jpg")"> 
+				<img src="@routes.Assets.at("/public","images/img22027.jpg")">
+				<img src="@routes.Assets.at("/public","images/img22029.jpg")">
+				<img src="http://g1.img-dpreview.com/DA6C66A9C9084BD4ADDC865FCEA8CCAD.jpg">
+				<img src="http://g2.img-dpreview.com/492EC66197E14A69B37B2CCCC7AE1AEB.jpg">
+				<img src="http://g1.img-dpreview.com/77D0690ADF954AC0AF580E5C765BCBBE.jpg">
+				<img src="http://g4.img-dpreview.com/4E81D516E58A4B459E88A3CBDE8FF921.jpg">
+		</div>
+	
+		<script>
+			Galleria.loadTheme('@routes.Assets.at("/public","javascripts/galleria.classic.min.js")');
+			Galleria.run('#galleria');
+		</script>
+		
+}

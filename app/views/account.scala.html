@@ -1,0 +1,240 @@
+@(accountForm: Form[MainProgram.Account], tabKey: String)
+
+@import helper._ 
+
+@homebase("account"){
+
+<script type="text/javascript">
+	
+	
+	$(document).ready(function(){
+		
+		switchBtwTabs("@tabKey");
+		
+    	var pok = false;
+    	var rpok = false;
+		
+		$("#pwd1").change(function(){
+			if($("#pwd1").val().length <6 ){
+				$("#availability_pwd1").html('<font color="#cc0000">&nbsp;&nbsp;&nbsp;Password too short</font>');
+				pok = false;
+				$("#saveBtn").attr("disabled", "disabled");
+			}
+			else{
+				$("#availability_pwd1").html('<font color="#ACF52A">&nbsp;&nbsp;&nbsp;Password valid</font>');
+				pok = true;
+			}
+			
+			if (pok==true && rpok==true){
+				
+				$("#saveBtn").removeAttr("disabled");
+			}
+		});
+		
+		
+		$("#pwd2").change(function(){
+			if(pok == true && $("#pwd1").val() != $("#pwd2").val()) {
+				$("#availability_pwd2").html('<font color="#cc0000">&nbsp;&nbsp;&nbsp;Confirmation password invalid</font>');
+				rpok = false;
+				$("#saveBtn").attr("disabled", "disabled");
+			}
+			else if (pok == true){
+				$("#availability_pwd2").html('<font color="#ACF52A">&nbsp;&nbsp;&nbsp;Confirmation password valid</font>');
+				rpok = true;
+			}
+			
+			if (pok==true && rpok==true){
+				
+				$("#saveBtn").removeAttr("disabled");
+			}
+		});
+		
+		
+	 });
+	
+	function switchBtwTabs(key){
+		
+		if(key=='prof'){
+			
+			$(".prof").addClass("active");
+			$("#profile").removeClass('well-inactive');
+			$(".password").removeClass("active");
+			$("#pwd").addClass('well-inactive');
+		}
+		
+		else if(key=='password'){
+			
+			$(".password").addClass("active");
+			$("#pwd").removeClass('well-inactive');
+			$(".prof").removeClass("active");
+			$("#profile").addClass('well-inactive');
+		}
+		
+	}
+	
+</script>
+
+<style>
+div.well-inactive{
+	display: none;
+}
+
+div.well-active{
+	display: block;
+}
+.container {
+	width: 850px;
+}
+
+label {
+	font-weight: bold;
+}
+
+select {
+	margin-left: -9px;
+}
+</style>
+
+}{
+
+
+<div class="container">
+
+	<header class="jumbotron subhead" id="overview" style="margin-top: 60px">
+
+	</header>
+
+
+
+	<div class="content">
+
+		<div class="page-header">
+			<h1 style="margin-left: 30px;">MY ACCOUNT</h1>
+		</div>
+		
+		<div class="row">
+		
+			<div class="span3">
+
+				<div class="well" style="padding: 8px 0;">
+					<ul class="nav nav-list">
+					<!--<li class="nav-header">List header</li> -->
+						<li class="prof active"><a href="javascript:;" onclick="switchBtwTabs('prof'); $('#flash').css('display','none'); ">Profile</a>
+						</li>
+						<li class="password"><a href="javascript:;" onclick="switchBtwTabs('password'); $('#flash').css('display','none'); ">Password</a>
+						</li>
+						<li class="app"><a href="javascript:;">Applications</a>
+						</li>
+					<!--<li class="nav-header">Another list header</li> 
+						<li><a href="#">Profile</a>
+						</li>
+						<li><a href="#">Settings</a>
+						</li>
+						<li class="divider"></li>
+						<li><a href="#">Help</a>-->
+						</li>
+					</ul>
+				</div>
+
+			</div>
+			
+	@form(action = routes.MainProgram.updateAccountInfo()){		
+			<div id="profile" class="span6 well">
+			
+    						<p><strong>Email</strong></p>
+    					    
+    					    <!--  
+    					    <ul>
+    					    	<li>
+				                	<input type="email" name="email" autofocus="autofocus" placeholder="Email" value="">
+				                </li>
+							    <li>
+							    	<img id = "img" src="http://placehold.it/180x180/FFFF66/000000&text=IMG" alt="">
+				                </li>
+				            </ul>
+				            -->
+				            <p>
+				            	<input type="email" name="email" autofocus="autofocus" value="@accountForm("email").value" disabled="disabled">
+				            </p>
+    						
+    						<p><strong>Created at</strong></p>
+    						<p>
+				                <input type="text" name="createdTime" disabled="disabled">
+				            </p>
+    						
+    						<p><strong>Display name</strong></p>
+    						<p>
+				                <input type="text" name="displayName" placeholder="Display name" value="@accountForm("displayName").value">
+				            </p>
+
+
+							<!--  
+    						<p><strong>Gender</strong></p>
+							<select class="span2" id="gender" name="gender" value="@accountForm("gender").value" >
+								<option value=""></option>
+				                <option value="f">Female</option>
+				                <option value="m">Male</option>
+             				</select>
+             				-->
+             				<p><strong>
+             				@select(field = accountForm("Gender"), options = Seq(""->"", "f"->"Female", "m"->"Male") , 'label -> "Gender") 
+             				</strong>
+             				</p>
+             				
+             				
+    						<p><strong>About you</strong></p>
+    						<p>
+				                <textarea cols="5" style="width: 450px; height: 80px;" name="selfDescription" placeholder="Describe yourself">@accountForm("selfDescription").value</textarea>
+				            </p>
+				            <p>
+						     	<input type="submit" class="btn btn-primary" style="float: right;" value="Save Changes">
+							</p>
+							
+							
+								
+			</div>
+			
+			
+			
+			
+			<div id="pwd" class="span6 well well-inactive">
+
+	    					<p><strong>Password</strong></p>
+    						<p>
+				                <input type="password" name="password" id="pwd1" autofocus="autofocus" placeholder="Password">
+				                <span id="availability_pwd1"></span>
+				            </p>
+	    					<p><strong>Confirm Password</strong></p>
+    						<p>
+				                <input type="password" name="password2" id="pwd2" placeholder="Confirm password">
+				                <span id="availability_pwd2"></span>
+				            </p>
+				            <p>
+						     	<input id="saveBtn" type="submit" class="btn btn-primary" style="float: right;" value="Change Password" disabled="disabled">
+							</p>						    		           
+			</div>
+	}		
+			
+			
+			
+			
+						
+		</div>
+		
+		
+		<div class="row">
+			@if(flash.get("success")) {
+			
+					<div id="flash" style="float: center; width: 690px; margin-left: 20px; display: block" class="alert alert-success">@flash.get("success")</div>
+			}
+		</div>
+
+	</div>
+
+	<footer></footer>
+
+</div>
+
+
+}
+

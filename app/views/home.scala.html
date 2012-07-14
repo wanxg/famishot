@@ -1,0 +1,132 @@
+@(albumList: List[Album])
+
+@import helper._
+
+@homebase("home"){
+
+<script type="text/javascript">
+  
+	$(document).ready(function(){
+	    $("#albumName").keyup(function(){
+	    	var name = $("#albumName").val();
+	    	if (name.replace(/\s/g,"") != ""){
+	    		$("#okBtn").removeAttr("disabled");
+	    	}
+	    	else
+	    		$("#okBtn").attr("disabled", "disabled");
+	    });
+	    
+	    $("#okBtn").click(function(){
+	    	  var dirName = $("#albumName").val();
+	    	  $("#frm_addAlbum").attr("action", "/album/" + dirName + "/add");
+	    	  $("#frm_addAlbum").submit();
+	    });
+	    
+	});
+	
+	WB2.anyWhere(function(W){
+		W.widget.connectButton({
+			id: "wb_connect_btn",	
+			type:'2,2',
+			callback : {
+				login:function(o){
+				},
+				logout:function(){
+				}
+			}
+		});
+	});
+	
+	
+</script>
+<style> 
+	
+.thumbnails > li {
+	margin-bottom: 100px;
+}
+
+.dropdown .caret {
+margin-top: 18px;
+}
+	
+</style>
+
+}{
+
+<div class="container">
+	
+	 <header class="jumbotron subhead" id="overview" style="margin-top: 60px">
+	  <h1>YOUR PHOTO ALBUMS </h1>
+	  <p class="lead"></p>
+	  <div class="subnav">
+	    <ul class="breadcrumb">
+			<li class="active">Album</li>
+	    </ul>
+	  </div>
+	</header>
+	
+	<section id="thumbnails">
+
+			
+		<div class="row">
+				<ul class="thumbnails">
+					
+				@for(album <- albumList){
+				
+					<li class="span3">
+						<a class="thumbnail" data-toggle="dropdown" id="modalBtn" href="@routes.MainProgram.albumPhotos(album.id)"> 
+							<img id = "img_@album.id" src="http://placehold.it/260x180/FFFF66/000000&text=@album.name" alt="">
+						</a>
+						<div>  </div>
+					</li>
+
+					<li class="dropdown" id="@album.id">
+					    <a class="dropdown-toggle" data-toggle="dropdown" href="#@album.id">
+					      <b class="caret"></b>
+					    </a>
+					    <form action="@routes.MainProgram.deleteAlbum(album.id)" id="frm_@album.id" method="post" style="display: none;">
+						</form>
+					    <ul class="dropdown-menu">
+					      <li><a href="javascript:;" onclick="javascript: document.getElementById('frm_@album.id') .submit()">Delete</a></li>
+					      <li class="divider"></li>
+					      <li><a href="#">Separated link</a></li>
+					    </ul>
+					</li>
+					
+					<li class="span1">
+					</li>
+				}	
+				
+					<li class="span3"><a data-toggle="modal" id="modalBtn" href="#myModal" class="thumbnail"> <img
+							src="@routes.Assets.at("/public","images/add_album.png")" alt=""> </a>
+					</li>
+				</ul>
+		</div>
+
+	</section>
+	
+</div>
+
+<div id="myModal" class="modal hide fade" style="display: none;">
+
+
+	<div class="modal-header">
+		<button class="close" data-dismiss="modal">&times;</button>
+		<h3>Name Your Album</h3>
+	</div>
+
+	<form id="frm_addAlbum" method="post" style="display: none;">
+	</form>
+	<div class="modal-body">
+
+		<p></p>
+		<p>
+			<input type="text" name="name" id="albumName" placeholder="Album Name" autofocus> <span id="availability_albumName"></span>
+		</p>
+		<p>
+		<input id="okBtn" type="submit" class="btn btn-primary" value="Ok" disabled="disabled">
+		</p>
+	</div>
+</div>
+}
+

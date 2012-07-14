@@ -1,0 +1,53 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# index page
+GET     /                           controllers.MainProgram.index()
+
+
+########################### Login #######################################################
+
+POST    /login                      controllers.Application.authenticate()
+GET     /login                      controllers.Application.login()
+GET     /signup						controllers.Application.createAccount()							
+
+########################  weibo  ##################################################
+
+##  GET     /weiboLogin      			controllers.Application.weiboLogin(weiboId : String)
+GET     /weiboLogin     			controllers.Application.weiboLogin(code : String ?= "", error: String ?= "")
+GET		/album/photo/postToWeibo	controllers.MainProgram.postPicToWeibo()
+
+
+########################### Handle Ajax Request #########################################
+
+GET		/ajax/verifyEmail           controllers.Application.verifyEmail(inputEmail : String)
+POST	/ajax/photo/updateTitleDes	controllers.MainProgram.updatePhotoTitleDes()
+GET		/ajax/photo/updateTitleDes	controllers.MainProgram.updatePhotoTitleDes()
+
+########################### Logout ######################################################
+
+GET     /logout                     controllers.Application.logout()
+
+
+########################  mainProgram  ##################################################
+
+GET     /home                       controllers.MainProgram.home()
+GET     /view                       controllers.MainProgram.view()
+
+GET     /account/					controllers.MainProgram.account(tabKey : String ?= "prof")
+POST	/account					controllers.MainProgram.updateAccountInfo()
+
+GET     /upload                     controllers.MainProgram.uploadPage()
+POST    /uploadFiles                controllers.MainProgram.uploadFiles()
+
+POST    /album/:name/add            controllers.MainProgram.addAlbum(name: String)
+POST    /album/:id/delete           controllers.MainProgram.deleteAlbum(id: String)
+
+GET     /album                      controllers.MainProgram.album()
+GET     /album/:id/photos	        controllers.MainProgram.albumPhotos(id: String) 
+POST    /album/photo/:id/delete     controllers.MainProgram.deletePhoto(id: String)
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)
+GET     /albums/*file               controllers.Assets.at(path="/albums", file)

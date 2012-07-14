@@ -1,0 +1,275 @@
+@(loginForm: Form[Application.Login])(signupForm: Form[Application.Signup])
+
+@import helper._
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>FAMISHOT</title>
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("/public","stylesheets/bootstrap.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("/public","stylesheets/main.css")">
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("/public","images/favicon.png")">
+        <script src="@routes.Assets.at("/public","javascripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("/public","javascripts/bootstrap-modal.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("/public","javascripts/bootstrap-alert.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("/public","javascripts/bootstrap-transition.js")" type="text/javascript"></script>
+        <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=3867543857" type="text/javascript" charset="utf-8"></script>
+	    <script type="text/javascript">
+	    
+	    $(document).ready(function(){
+	    	
+	    	var eok = false;
+	    	var pok = false;
+	    	var rpok = false;
+	    		
+	    	$("#modalBtn").click(function(){
+	    		$("#pwd1").val("");
+	    		$("#pwd2").val("");
+	    		$("#availability_pwd1").html("");
+	    		$("#availability_pwd2").html("");
+	    	});
+	    	
+	    	
+	    	
+			$("#email").change(function(){
+				
+				var email = $("#email").val();
+				
+				var filter = /^([A-Za-z0-9_\-\.])+\@@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+				 
+				
+				if(filter.test(email)) {// if a valid email address
+				
+					$("#availability_email").html('&nbsp;&nbsp;&nbsp;<img src="@routes.Assets.at("/public","images/loader.gif")" align="absmiddle">&nbsp;Checking availability...').load('/ajax/verifyEmail?inputEmail='.concat(email));
+					eok = true;
+				}
+				
+				else {
+					$("#availability_email").html('<font color="#cc0000">&nbsp;&nbsp;&nbsp;Invalid email address</font>');
+					eok = false;
+					$("#nextBtn").attr("disabled", "disabled");
+				}
+				if (eok==true && pok==true && rpok==true ){
+					
+					$("#nextBtn").removeAttr("disabled");
+				}
+				
+			});
+			
+			$("#pwd1").change(function(){
+				if($("#pwd1").val().length <6 ){
+					$("#availability_pwd1").html('<font color="#cc0000">&nbsp;&nbsp;&nbsp;Password too short</font>');
+					pok = false;
+					$("#nextBtn").attr("disabled", "disabled");
+				}
+				else{
+					$("#availability_pwd1").html('<font color="#ACF52A">&nbsp;&nbsp;&nbsp;Password valid</font>');
+					pok = true;
+				}
+				
+				if (eok==true && pok==true && rpok==true){
+					
+					$("#nextBtn").removeAttr("disabled");
+				}
+			});
+			
+	
+			$("#pwd2").change(function(){
+				if(pok == true && $("#pwd1").val() != $("#pwd2").val()) {
+					$("#availability_pwd2").html('<font color="#cc0000">&nbsp;&nbsp;&nbsp;Confirmation password invalid</font>');
+					rpok = false;
+					$("#nextBtn").attr("disabled", "disabled");
+				}
+				else if (pok == true){
+					$("#availability_pwd2").html('<font color="#ACF52A">&nbsp;&nbsp;&nbsp;Confirmation password valid</font>');
+					rpok = true;
+				}
+				
+				if (eok==true && pok==true && rpok==true){
+					
+					$("#nextBtn").removeAttr("disabled");
+				}
+			});
+			
+	    });
+	
+	    </script>
+    
+    </head>
+    
+    <body>
+       <div class="navbar" style="margin-bottom: 20px">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="brand" href="#">FAMISHOT</a>
+                    <ul class="nav">
+                        <li>
+                            <a href="#">About me</a>
+                        </li>
+                        <li>
+                            <a href="mailto:wanxiaolong@@gmail.com?Subject=Hello!">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div style="margin-bottom: 25px">
+          <iframe width="25%" height="75" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=50&ptype=1&speed=0&skin=1&isTitle=0&noborder=0&isWeibo=0&isFans=0&uid=2198140331&verifier=0804ddd3&dpc=1"></iframe>
+        
+        </div>
+        
+        
+        <div class="container">
+
+            <div class="content">
+                
+                <div class="page-header">
+                    <h1>Family Photo Album</h1>
+                </div>
+
+                <div class="row" style="width:700px">
+                    <div class="span14">
+                            <h2>No Account? </h2>
+                            <p></p>
+                         
+							
+							@form(action = routes.Application.createAccount){
+							
+								<div id="myModal" class="modal hide fade" style="display: none;">
+									
+									
+									<div class="modal-header">
+										<button class="close" data-dismiss="modal">x</button>
+										<h3>Create your account</h3>
+									</div>
+									
+									<div class="modal-body">
+										
+										
+											<p>Email</p>
+											<p>
+					                			<input type="email" name="semail" id="email" autofocus="autofocus" placeholder="Email" value="@signupForm("semail").value">
+					                			<span id="availability_email"></span>
+					            			</p>
+										
+											<p>Password</p>
+											<p>
+					                			<input type="password" name="spassword" id="pwd1" placeholder="Password">
+					                			<span id="availability_pwd1"></span>
+					            			</p>
+											<p>Confirm Password</p>
+											<p>
+					                			<input type="password" name="srepassword" id="pwd2" placeholder="Confirm Password">
+					                			<span id="availability_pwd2"></span>
+					            			</p>
+									</div>
+									
+									
+									<div class="modal-footer">
+										<a href="#" class="btn" data-dismiss="modal">Close</a>
+										<input id="nextBtn" type="submit" class="btn btn-primary" value="Register" disabled="disabled">
+									</div>
+								</div>
+						 	}                           
+						    <a data-toggle="modal" id="modalBtn" class="btn btn-primary" href="#myModal">SIGN UP »</a>
+    
+    				<p></p>
+    				@form(action = routes.Application.authenticate()){
+    
+    						<h2>Already User?</h2>
+    						
+    						@if(loginForm.hasGlobalErrors) { 
+								<div class="alert alert-error">
+				                   <strong>@loginForm.globalError.message</strong>
+				                </div>
+				            }
+    						<p>Email</p>
+    					    <p>
+				                <input type="email" name="email" autofocus="autofocus" placeholder="Email" value="@loginForm("email").value">
+				            </p>
+    						
+    						<p>Password</p>
+    						<p>
+				                <input type="password" name="password" placeholder="Password">
+				            </p>
+						    <p>
+						     	<input type="submit" class="btn btn-primary" value="LOG IN »">
+							</p>
+    				}
+                    </div>
+                    
+                    
+      <!--                
+                    
+                    <div class="span3" style="float:right">
+                    
+                    	<div id="wb_connect_btn" style="width:200px;height:180px;border:1px solid #bbb;background:#eee; padding:5px 2px;">login</div>
+
+
+						<script>
+							WB2.anyWhere(function(W){
+								W.widget.connectButton({
+									id: "wb_connect_btn",	
+									type:'2,2',
+									callback : {
+										login:function(o){
+											var url = "/weiboLogin?weiboId="+o.id;
+											window.location.href = url;
+										},
+										logout:function(){
+											alert('logout');
+										}
+									}
+								});
+							});
+						</script>
+                    
+                   </div>
+                   
+        -->          
+                    <div class="span5" style="min-height:100px; width: 300px; float:right">
+                    
+                    </div>
+                    <div class="span6" style="float:right; float:bottom; width:300px; padding: 5px 0px 20px;">
+                    	<h4>Login with following accounts</h4>
+                    	<p></p>
+                    	<p></p>
+                    	<ul class="thumbnails">
+                    		<li class="span2">
+								<a href="https://api.weibo.com/oauth2/authorize?client_id=3867543857&amp;redirect_uri=http%3A%2F%2F95.222.246.113:9000%2FweiboLogin&response_type=code">
+									<img src="@routes.Assets.at("/public","images/weibo_32.png")" alt="Login with Weibo">
+								</a>
+							</li>
+							<li class="span2">
+								<a href="#">
+									<img src="@routes.Assets.at("/public","images/qq_32.png")" alt="Login with QQ">
+								</a>
+							</li>
+							<li class="span2">
+								<a href="#">
+									<img src="@routes.Assets.at("/public","images/google_32.png")" alt="Login with Google">
+								</a>
+							</li>
+							<li class="span2">
+								<a href="#">
+									<img src="@routes.Assets.at("/public","images/facebook_32.png")" alt="Login with Facebook">
+								</a>
+							</li>
+						</ul>
+                   </div> 
+               </div>
+                
+    		</div>
+
+            <footer>                
+               
+            </footer>
+
+        </div>
+        
+    </body>
+</html>
+
+

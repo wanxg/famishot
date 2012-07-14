@@ -1,0 +1,71 @@
+0    INFO  [2012-07-07 01:29:39]  checkpointClose start
+79   INFO  [2012-07-07 01:29:40]  checkpointClose end
+22622 DEBUG [2012-07-07 01:30:02]  Authorization: OAuth2 2.00_iKl5CdpojNE3ffec3eba2xYSiaC
+22623 DEBUG [2012-07-07 01:30:02]  API-RemoteIP: 192.168.0.100
+24115 DEBUG [2012-07-07 01:30:04]  Response:
+24116 DEBUG [2012-07-07 01:30:04]  https StatusCode:200
+24117 DEBUG [2012-07-07 01:30:04]  Date:Fri, 06 Jul 2012 23:29:59 GMT
+24118 DEBUG [2012-07-07 01:30:04]  Server:PWS/1.7.3.13
+24118 DEBUG [2012-07-07 01:30:04]  Transfer-Encoding:chunked
+24119 DEBUG [2012-07-07 01:30:04]  X-Px:nc fra-tel-n33 ( sha-agg-n2), nc sha-agg-n2 ( origin)
+24120 DEBUG [2012-07-07 01:30:04]  Content-Type:application/json;charset=UTF-8
+24120 DEBUG [2012-07-07 01:30:04]  Age:0
+24121 DEBUG [2012-07-07 01:30:04]  Via:1.1 varnish
+24121 DEBUG [2012-07-07 01:30:04]  Vary:Accept-Encoding
+24122 DEBUG [2012-07-07 01:30:04]  Api-Server-IP:10.75.24.205
+24123 DEBUG [2012-07-07 01:30:04]  X-Varnish:2140288098
+24123 DEBUG [2012-07-07 01:30:04]  Connection:keep-alive
+24128 DEBUG [2012-07-07 01:30:04]  {"created_at":"Sat Jul 07 07:29:59 +0800 2012","id":3465056878827150,"mid":"3465056878827150","idstr":"3465056878827150","text":"测试微博","source":"<a href=\"http://open.t.sina.com.cn\" rel=\"nofollow\">未通过审核应用</a>","favorited":false,"truncated":false,"in_reply_to_status_id":"","in_reply_to_user_id":"","in_reply_to_screen_name":"","thumbnail_pic":"http://ww2.sinaimg.cn/thumbnail/8304f5abjw1dunxeabrpbj.jpg","bmiddle_pic":"http://ww2.sinaimg.cn/bmiddle/8304f5abjw1dunxeabrpbj.jpg","original_pic":"http://ww2.sinaimg.cn/large/8304f5abjw1dunxeabrpbj.jpg","geo":null,"user":{"id":2198140331,"idstr":"2198140331","screen_name":"wanxg_de","name":"wanxg_de","province":"400","city":"19","location":"海外 德国","description":"在路上，哪里才是终点？","url":"","profile_image_url":"http://tp4.sinaimg.cn/2198140331/50/5603972383/1","profile_url":"wanxg","domain":"wanxg","weihao":"","gender":"m","followers_count":92,"friends_count":139,"statuses_count":511,"favourites_count":194,"created_at":"Sat Jun 25 00:00:00 +0800 2011","following":false,"allow_all_act_msg":false,"geo_enabled":true,"verified":false,"verified_type":-1,"allow_all_comment":true,"avatar_large":"http://tp4.sinaimg.cn/2198140331/180/5603972383/1","verified_reason":"","follow_me":false,"online_status":0,"bi_followers_count":46,"lang":"zh-cn"},"reposts_count":0,"comments_count":0,"mlevel":0,"visible":{"type":0,"list_id":0}}
+
+0    INFO  [2012-07-07 01:39:10]  checkpointClose start
+82   INFO  [2012-07-07 01:39:10]  checkpointClose end
+20143 DEBUG [2012-07-07 01:39:30]  Authorization: OAuth2 2.00_iKl5CdpojNE3ffec3eba2xYSiaC
+20144 DEBUG [2012-07-07 01:39:30]  API-RemoteIP: 192.168.0.100
+21487 DEBUG [2012-07-07 01:39:32]  Response:
+21488 DEBUG [2012-07-07 01:39:32]  https StatusCode:400
+21488 DEBUG [2012-07-07 01:39:32]  Date:Fri, 06 Jul 2012 23:39:27 GMT
+21489 DEBUG [2012-07-07 01:39:32]  Server:PWS/1.7.3.13
+21489 DEBUG [2012-07-07 01:39:32]  Transfer-Encoding:chunked
+21490 DEBUG [2012-07-07 01:39:32]  X-Px:nc fra-ti2-n76 ( sha-agg-n2), nc sha-agg-n2 ( origin)
+21491 DEBUG [2012-07-07 01:39:32]  Content-Type:application/json;charset=UTF-8
+21492 DEBUG [2012-07-07 01:39:32]  Age:0
+21492 DEBUG [2012-07-07 01:39:32]  Via:1.1 varnish
+21493 DEBUG [2012-07-07 01:39:32]  Vary:Accept-Encoding
+21493 DEBUG [2012-07-07 01:39:32]  Api-Server-IP:10.75.24.201
+21494 DEBUG [2012-07-07 01:39:32]  X-Varnish:2268258726
+21495 DEBUG [2012-07-07 01:39:32]  Connection:keep-alive
+21500 DEBUG [2012-07-07 01:39:32]  {"error":"repeat content!","error_code":20019,"request":"/2/statuses/upload.json"}
+
+0    INFO  [2012-07-07 13:10:52]  checkpointClose start
+149  INFO  [2012-07-07 13:10:52]  checkpointClose end
+31904596 DEBUG [2012-07-07 22:02:37]  Request:
+31904610 DEBUG [2012-07-07 22:02:37]  GET:https://api.weibo.com/2/users/show.json
+32014743 DEBUG [2012-07-07 22:04:27]  Request:
+32014743 DEBUG [2012-07-07 22:04:27]  GET:https://api.weibo.com/2/users/show.json
+32014748 DEBUG [2012-07-07 22:04:27]  Authorization: OAuth2 2.00_iKl5CdpojNE3ffec3eba2xYSiaC
+32014748 DEBUG [2012-07-07 22:04:27]  API-RemoteIP: 192.168.0.100
+32015423 DEBUG [2012-07-07 22:04:27]  Response:
+32015426 DEBUG [2012-07-07 22:04:27]  https StatusCode:200
+32015426 DEBUG [2012-07-07 22:04:27]  Date:Sat, 07 Jul 2012 20:04:25 GMT
+32015427 DEBUG [2012-07-07 22:04:27]  Server:PWS/1.7.3.13
+32015427 DEBUG [2012-07-07 22:04:27]  Transfer-Encoding:chunked
+32015428 DEBUG [2012-07-07 22:04:27]  X-Px:nc fra-ti2-n6 ( sha-agg-n5), nc sha-agg-n5 ( origin)
+32015428 DEBUG [2012-07-07 22:04:27]  Content-Type:application/json;charset=UTF-8
+32015429 DEBUG [2012-07-07 22:04:27]  Age:0
+32015430 DEBUG [2012-07-07 22:04:27]  Via:1.1 varnish
+32015430 DEBUG [2012-07-07 22:04:27]  Vary:Accept-Encoding
+32015431 DEBUG [2012-07-07 22:04:27]  Api-Server-IP:10.75.24.201
+32015432 DEBUG [2012-07-07 22:04:27]  X-Varnish:2352641182
+32015432 DEBUG [2012-07-07 22:04:27]  Connection:keep-alive
+32015466 DEBUG [2012-07-07 22:04:28]  {"id":2198140331,"idstr":"2198140331","screen_name":"wanxg_de","name":"wanxg_de","province":"400","city":"19","location":"海外 德国","description":"在路上，哪里才是终点？","url":"","profile_image_url":"http://tp4.sinaimg.cn/2198140331/50/5603972383/1","profile_url":"wanxg","domain":"wanxg","weihao":"","gender":"m","followers_count":92,"friends_count":139,"statuses_count":512,"favourites_count":194,"created_at":"Sat Jun 25 00:00:00 +0800 2011","following":false,"allow_all_act_msg":false,"geo_enabled":true,"verified":false,"verified_type":-1,"remark":"","status":{"created_at":"Sat Jul 07 07:29:59 +0800 2012","id":3465056878827150,"mid":"3465056878827150","idstr":"3465056878827150","text":"测试微博","source":"<a href=\"\" rel=\"nofollow\">未通过审核应用</a>","favorited":false,"truncated":false,"in_reply_to_status_id":"","in_reply_to_user_id":"","in_reply_to_screen_name":"","thumbnail_pic":"http://ww2.sinaimg.cn/thumbnail/8304f5abjw1dunxeabrpbj.jpg","bmiddle_pic":"http://ww2.sinaimg.cn/bmiddle/8304f5abjw1dunxeabrpbj.jpg","original_pic":"http://ww2.sinaimg.cn/large/8304f5abjw1dunxeabrpbj.jpg","geo":null,"reposts_count":0,"comments_count":0,"mlevel":0,"visible":{"type":0,"list_id":0}},"allow_all_comment":true,"avatar_large":"http://tp4.sinaimg.cn/2198140331/180/5603972383/1","verified_reason":"","follow_me":false,"online_status":1,"bi_followers_count":48,"lang":"zh-cn"}
+
+0    INFO  [2012-07-07 22:41:35]  checkpointClose start
+130  INFO  [2012-07-07 22:41:35]  checkpointClose end
+0    INFO  [2012-07-07 22:48:14]  checkpointClose start
+94   INFO  [2012-07-07 22:48:14]  checkpointClose end
+0    INFO  [2012-07-07 23:03:08]  checkpointClose start
+122  INFO  [2012-07-07 23:03:08]  checkpointClose end
+0    INFO  [2012-07-07 23:30:29]  checkpointClose start
+99   INFO  [2012-07-07 23:30:29]  checkpointClose end
+0    INFO  [2012-07-08 10:49:48]  checkpointClose start
+144  INFO  [2012-07-08 10:49:49]  checkpointClose end
